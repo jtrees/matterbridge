@@ -295,6 +295,8 @@ func (b *Bdiscord) handleDownloadFile(rmsg *config.Message, m *discordgo.Message
 			b.Log.Errorf("download %s failed %#v", attach.URL, err)
 		}
 
-		helper.HandleDownloadData(b.Log, rmsg, path.Base(attach.URL), rmsg.Text, attach.URL, data, b.General)
+		urlClean, _, _ := strings.Cut(attach.URL, "?")
+
+		helper.HandleDownloadData(b.Log, rmsg, path.Base(urlClean), rmsg.Text, attach.URL, data, b.General)
 	}
 }
